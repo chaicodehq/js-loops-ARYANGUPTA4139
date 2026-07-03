@@ -13,7 +13,7 @@
  *     e.g., order of 12 = batch(5) + batch(5) + batch(2) = 3 batches
  *   - Track: totalBatches, totalPlates, ordersProcessed
  *   - Skip orders that are not positive integers (0, negative, decimal, non-number)
- *
+ * 
  * Validation:
  *   - Agar orders array nahi hai ya empty hai,
  *     return: { totalBatches: 0, totalPlates: 0, ordersProcessed: 0 }
@@ -35,4 +35,35 @@
  */
 export function biryaniBatchProcessor(orders) {
   // Your code here
+  if(!Array.isArray(orders) || orders.length===0) return { totalBatches: 0, totalPlates: 0, ordersProcessed: 0 }
+
+  let totalBatches=0
+  let totalPlates=0;
+  let ordersProcessed=0
+  for(let i of orders){
+    if(typeof i !=="number" || !Number.isInteger(i)|| i <=0){
+      continue;
+    }
+
+    ordersProcessed++
+    totalPlates+=i
+
+    let Remaining=i
+    do{
+      totalBatches++
+      if(Remaining>5){
+        Remaining-=5;
+      }
+      else{
+        Remaining=0;
+      }
+    }
+    while(Remaining>0)
+  }
+
+  return {
+    totalBatches,
+    totalPlates,
+    ordersProcessed
+  }
 }
